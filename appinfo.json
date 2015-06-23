@@ -1,0 +1,23 @@
+{
+    "appKeys": {},
+    "capabilities": [
+        ""
+    ],
+    "companyName": "a.dotreppe@aspyct.org",
+    "longName": "Periodic Time",
+    "projectType": "native",
+    "resources": {
+        "media": []
+    },
+    "sdkVersion": "3",
+    "shortName": "Periodic Time",
+    "targetPlatforms": [
+        "aplite",
+        "basalt"
+    ],
+    "uuid": "48af9fb2-586f-4a90-b5ec-5fe904861bba",
+    "versionLabel": "1.0",
+    "watchapp": {
+        "watchface": true
+    }
+}
