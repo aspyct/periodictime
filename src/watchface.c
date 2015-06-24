@@ -17,7 +17,7 @@ static void initialise_ui(void) {
   s_window = window_create();
   window_set_background_color(s_window, GColorBlack);
   #ifndef PBL_SDK_3
-    window_set_fullscreen(s_window, 1);
+    window_set_fullscreen(s_window, true);
   #endif
   
   s_res_gothic_28_bold = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
@@ -32,7 +32,7 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)time_label);
   
   // element_code_label
-  element_code_label = text_layer_create(GRect(5, 62, 134, 55));
+  element_code_label = text_layer_create(GRect(5, 67, 134, 55));
   text_layer_set_background_color(element_code_label, GColorBlack);
   text_layer_set_text_color(element_code_label, GColorWhite);
   text_layer_set_text(element_code_label, "Hg");
@@ -41,7 +41,7 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)element_code_label);
   
   // atomic_number_label
-  atomic_number_label = text_layer_create(GRect(5, 40, 134, 24));
+  atomic_number_label = text_layer_create(GRect(5, 40, 45, 24));
   text_layer_set_background_color(atomic_number_label, GColorBlack);
   text_layer_set_text_color(atomic_number_label, GColorWhite);
   text_layer_set_text(atomic_number_label, "80");
@@ -49,7 +49,7 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)atomic_number_label);
   
   // atomic_weight_label
-  atomic_weight_label = text_layer_create(GRect(5, 139, 134, 24));
+  atomic_weight_label = text_layer_create(GRect(5, 140, 134, 24));
   text_layer_set_background_color(atomic_weight_label, GColorBlack);
   text_layer_set_text_color(atomic_weight_label, GColorWhite);
   text_layer_set_text(atomic_weight_label, "200.5900");
@@ -58,7 +58,7 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)atomic_weight_label);
   
   // element_name_label
-  element_name_label = text_layer_create(GRect(5, 108, 134, 23));
+  element_name_label = text_layer_create(GRect(5, 113, 134, 23));
   text_layer_set_background_color(element_name_label, GColorClear);
   text_layer_set_text_color(element_name_label, GColorWhite);
   text_layer_set_text(element_name_label, "Mercury");
