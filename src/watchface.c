@@ -33,7 +33,7 @@ static void initialise_ui(void) {
   
   // element_code_label
   element_code_label = text_layer_create(GRect(5, 67, 134, 55));
-  text_layer_set_background_color(element_code_label, GColorBlack);
+  text_layer_set_background_color(element_code_label, GColorClear);
   text_layer_set_text_color(element_code_label, GColorWhite);
   text_layer_set_text(element_code_label, "Hg");
   text_layer_set_text_alignment(element_code_label, GTextAlignmentCenter);
@@ -42,7 +42,7 @@ static void initialise_ui(void) {
   
   // atomic_number_label
   atomic_number_label = text_layer_create(GRect(5, 40, 45, 24));
-  text_layer_set_background_color(atomic_number_label, GColorBlack);
+  text_layer_set_background_color(atomic_number_label, GColorClear);
   text_layer_set_text_color(atomic_number_label, GColorWhite);
   text_layer_set_text(atomic_number_label, "80");
   text_layer_set_font(atomic_number_label, s_res_gothic_24_bold);
@@ -50,7 +50,7 @@ static void initialise_ui(void) {
   
   // atomic_weight_label
   atomic_weight_label = text_layer_create(GRect(5, 140, 134, 24));
-  text_layer_set_background_color(atomic_weight_label, GColorBlack);
+  text_layer_set_background_color(atomic_weight_label, GColorClear);
   text_layer_set_text_color(atomic_weight_label, GColorWhite);
   text_layer_set_text(atomic_weight_label, "200.5900");
   text_layer_set_text_alignment(atomic_weight_label, GTextAlignmentRight);
@@ -98,6 +98,49 @@ void set_element(const struct element *element) {
     text_layer_set_text(element_name_label, element->name);
     text_layer_set_text(atomic_number_label, element->number);
     text_layer_set_text(atomic_weight_label, element->mass);
+
+    #ifdef PBL_COLOR
+    GColor backgroundColor;
+    switch (element->element_group) {
+      case alkali_metals:
+          backgroundColor = GColorDarkGray;
+          break;
+      case alkaline_earth_metals:
+          backgroundColor = GColorPurple;
+          break;
+      case transition_metals:
+          backgroundColor = GColorWindsorTan;
+          break;
+      case other_metals:
+          backgroundColor = GColorFolly;
+          break;
+      case other_non_metals:
+          backgroundColor = GColorDarkGreen;
+          break;
+      case halogens:
+          backgroundColor = GColorBlueMoon;
+          break;
+      case inert_gases:
+          backgroundColor = GColorChromeYellow;
+          break;
+      case lanthanides:
+          // Color is fine
+          backgroundColor = GColorJaegerGreen;
+          break;
+      case actinides:
+          // Color is fine
+          backgroundColor = GColorIndigo;
+          break;
+      case trans_actinides:
+          backgroundColor = GColorVividCerulean;
+          break;
+      default:
+          backgroundColor = GColorBlack;
+          break;
+    }
+
+    window_set_background_color(s_window, backgroundColor);
+    #endif
 }
 
 void set_time_label(const char *time) {
