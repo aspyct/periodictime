@@ -104,25 +104,31 @@ void set_element(const struct element *element) {
     GColor backgroundColor;
     switch (element->element_group) {
       case alkali_metals:
+          // Color is fine
           backgroundColor = GColorDarkGray;
           break;
       case alkaline_earth_metals:
+          // Color is fine
           backgroundColor = GColorPurple;
           break;
       case transition_metals:
-          backgroundColor = GColorWindsorTan;
+          // Color is fine
+          backgroundColor = GColorDarkCandyAppleRed;
           break;
       case other_metals:
+          // Color is fine
           backgroundColor = GColorFolly;
           break;
       case other_non_metals:
+          // Color is fine
           backgroundColor = GColorDarkGreen;
           break;
       case halogens:
+          // Color is fine
           backgroundColor = GColorBlueMoon;
           break;
       case inert_gases:
-          backgroundColor = GColorChromeYellow;
+          backgroundColor = GColorWindsorTan;
           break;
       case lanthanides:
           // Color is fine
