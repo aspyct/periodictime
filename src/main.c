@@ -4,9 +4,9 @@
 #include "watchface.h"
 
 // Define the elements
-int current_element = 0;
+int elements_left = 0;
 const int number_of_elements = 112;
-const struct element elements[] = {
+struct element elements[] = {
     { .name = "Hydrogen", .code = "H", .number = "1", .mass= "1.00794", .natural_state = gas},
     { .name = "Helium", .code = "He", .number = "2", .mass= "4.002602", .natural_state = gas},
     { .name = "Lithium", .code = "Li", .number = "3", .mass= "6.941"},
@@ -123,7 +123,7 @@ const struct element elements[] = {
 
 static void update_time() {
   // Get a tm structure
-  time_t temp = time(NULL); 
+  time_t temp = time(NULL);
   struct tm *tick_time = localtime(&temp);
 
   // Create a long-lived buffer
@@ -143,35 +143,45 @@ static void update_time() {
 }
 
 static void update_element() {
-    // Choose a random element
-    int element_number;
-    
-    do {
-        element_number = rand() % number_of_elements;
-    } while (element_number == current_element);
-    
-    current_element = element_number;
-    set_element(elements + element_number);
+    // If we did the whole table, start over
+    if (elements_left == 0) {
+        elements_left = number_of_elements;
+    }
+
+    // Select a random element
+    int element_number = rand() % elements_left;
+    struct element new_element = elements[element_number];
+
+    // Push the selected element to the end of the table
+    struct element last_element = elements[elements_left - 1];
+    elements[elements_left - 1] = new_element;
+    elements[element_number] = last_element;
+
+    // Count down the number of elements left valid in the table
+    elements_left -= 1;
+
+    // Display the chosen element
+    set_element(&new_element);
 }
-    
+
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
     update_time();
     update_element();
 }
-    
+
 int main() {
     // Initialize random generator
     srand(time(NULL));
-    
+
     show_watchface();
     update_element();
-    
+
     // Register with TickTimerService
     tick_timer_service_subscribe(MINUTE_UNIT, tick_handler);
-    
+
     // Run the event loop
     app_event_loop();
-    
+
     // Bye bye :)
     return 0;
 }
