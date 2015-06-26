@@ -6,7 +6,7 @@ static Window *s_window;
 static GFont s_res_gothic_28_bold;
 static GFont s_res_bitham_42_bold;
 static GFont s_res_gothic_24_bold;
-static GFont s_res_gothic_18;
+static GFont s_res_gothic_24;
 static TextLayer *time_label;
 static TextLayer *element_code_label;
 static TextLayer *atomic_number_label;
@@ -23,7 +23,8 @@ static void initialise_ui(void) {
   s_res_gothic_28_bold = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
   s_res_bitham_42_bold = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
   s_res_gothic_24_bold = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
-  s_res_gothic_18 = fonts_get_system_font(FONT_KEY_GOTHIC_18);
+  s_res_gothic_24 = fonts_get_system_font(FONT_KEY_GOTHIC_24);
+
   // time_label
   time_label = text_layer_create(GRect(0, 0, 144, 37));
   text_layer_set_text(time_label, "--:--");
@@ -32,7 +33,7 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)time_label);
   
   // element_code_label
-  element_code_label = text_layer_create(GRect(5, 67, 134, 55));
+  element_code_label = text_layer_create(GRect(5, 65, 134, 55));
   text_layer_set_background_color(element_code_label, GColorClear);
   text_layer_set_text_color(element_code_label, GColorWhite);
   text_layer_set_text(element_code_label, "Hg");
@@ -41,11 +42,11 @@ static void initialise_ui(void) {
   layer_add_child(window_get_root_layer(s_window), (Layer *)element_code_label);
   
   // atomic_number_label
-  atomic_number_label = text_layer_create(GRect(5, 40, 45, 24));
+  atomic_number_label = text_layer_create(GRect(5, 36, 45, 30));
   text_layer_set_background_color(atomic_number_label, GColorClear);
   text_layer_set_text_color(atomic_number_label, GColorWhite);
   text_layer_set_text(atomic_number_label, "80");
-  text_layer_set_font(atomic_number_label, s_res_gothic_24_bold);
+  text_layer_set_font(atomic_number_label, s_res_gothic_28_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)atomic_number_label);
   
   // atomic_weight_label
@@ -56,14 +57,14 @@ static void initialise_ui(void) {
   text_layer_set_text_alignment(atomic_weight_label, GTextAlignmentRight);
   text_layer_set_font(atomic_weight_label, s_res_gothic_24_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)atomic_weight_label);
-  
+
   // element_name_label
-  element_name_label = text_layer_create(GRect(5, 113, 134, 23));
+  element_name_label = text_layer_create(GRect(5, 105, 134, 30));
   text_layer_set_background_color(element_name_label, GColorClear);
   text_layer_set_text_color(element_name_label, GColorWhite);
   text_layer_set_text(element_name_label, "Mercury");
   text_layer_set_text_alignment(element_name_label, GTextAlignmentCenter);
-  text_layer_set_font(element_name_label, s_res_gothic_18);
+  text_layer_set_font(element_name_label, s_res_gothic_24);
   layer_add_child(window_get_root_layer(s_window), (Layer *)element_name_label);
 }
 
