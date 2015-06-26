@@ -26,7 +26,7 @@ static void initialise_ui(void) {
   s_res_gothic_18 = fonts_get_system_font(FONT_KEY_GOTHIC_18);
   // time_label
   time_label = text_layer_create(GRect(0, 0, 144, 37));
-  text_layer_set_text(time_label, "09:15");
+  text_layer_set_text(time_label, "--:--");
   text_layer_set_text_alignment(time_label, GTextAlignmentCenter);
   text_layer_set_font(time_label, s_res_gothic_28_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)time_label);
