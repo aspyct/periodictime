@@ -129,23 +129,9 @@ struct element elements[] = {
 };
 
 static void update_time() {
-  // Get a tm structure
-  time_t temp = time(NULL);
-  struct tm *tick_time = localtime(&temp);
+  static char buffer[] = "--:-- AM";
+  clock_copy_time_string(buffer, sizeof(buffer));
 
-  // Create a long-lived buffer
-  static char buffer[] = "00:00";
-
-  // Write the current hours and minutes into the buffer
-  if(clock_is_24h_style() == true) {
-    // Use 24 hour format
-    strftime(buffer, sizeof("00:00"), "%H:%M", tick_time);
-  } else {
-    // Use 12 hour format
-    strftime(buffer, sizeof("00:00"), "%I:%M", tick_time);
-  }
-
-  // Display this time on the TextLayer
   set_time_label(buffer);
 }
 
