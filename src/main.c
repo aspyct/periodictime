@@ -149,26 +149,6 @@ static void update_element() {
       struct element new_element = elements[element_number];
       show_element(&new_element);
     }
-
-
-    /*
-    // If we did the whole table, start over
-    if (elements_left == 0) {
-        elements_left = number_of_elements;
-    }
-
-    // Select a random element
-    int element_number = rand() % elements_left;
-    struct element new_element = elements[element_number];
-
-    // Push the selected element to the end of the table
-    struct element last_element = elements[elements_left - 1];
-    elements[elements_left - 1] = new_element;
-    elements[element_number] = last_element;
-
-    // Count down the number of elements left valid in the table
-    elements_left -= 1;
-    */
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
