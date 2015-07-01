@@ -12,6 +12,9 @@ static TextLayer *element_code_label;
 static TextLayer *atomic_number_label;
 static TextLayer *atomic_weight_label;
 static TextLayer *element_name_label;
+static GBitmap *spdf_bitmap;
+static GBitmap *groups_bitmap;
+static BitmapLayer *table_bitmap_layer;
 
 static void initialise_ui(void) {
   s_window = window_create();
@@ -19,7 +22,7 @@ static void initialise_ui(void) {
   #ifndef PBL_SDK_3
     window_set_fullscreen(s_window, true);
   #endif
-  
+
   s_res_gothic_28_bold = fonts_get_system_font(FONT_KEY_GOTHIC_28_BOLD);
   s_res_bitham_42_bold = fonts_get_system_font(FONT_KEY_BITHAM_42_BOLD);
   s_res_gothic_24_bold = fonts_get_system_font(FONT_KEY_GOTHIC_24_BOLD);
@@ -31,7 +34,7 @@ static void initialise_ui(void) {
   text_layer_set_text_alignment(time_label, GTextAlignmentCenter);
   text_layer_set_font(time_label, s_res_gothic_28_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)time_label);
-  
+
   // element_code_label
   element_code_label = text_layer_create(GRect(5, 65, 134, 55));
   text_layer_set_background_color(element_code_label, GColorClear);
@@ -40,7 +43,7 @@ static void initialise_ui(void) {
   text_layer_set_text_alignment(element_code_label, GTextAlignmentCenter);
   text_layer_set_font(element_code_label, s_res_bitham_42_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)element_code_label);
-  
+
   // atomic_number_label
   atomic_number_label = text_layer_create(GRect(5, 36, 45, 30));
   text_layer_set_background_color(atomic_number_label, GColorClear);
@@ -48,7 +51,7 @@ static void initialise_ui(void) {
   text_layer_set_text(atomic_number_label, "80");
   text_layer_set_font(atomic_number_label, s_res_gothic_28_bold);
   layer_add_child(window_get_root_layer(s_window), (Layer *)atomic_number_label);
-  
+
   // atomic_weight_label
   atomic_weight_label = text_layer_create(GRect(5, 140, 134, 24));
   text_layer_set_background_color(atomic_weight_label, GColorClear);
@@ -66,6 +69,10 @@ static void initialise_ui(void) {
   text_layer_set_text_alignment(element_name_label, GTextAlignmentCenter);
   text_layer_set_font(element_name_label, s_res_gothic_24);
   layer_add_child(window_get_root_layer(s_window), (Layer *)element_name_label);
+
+  spdf_bitmap = gbitmap_create_with_resource(RESOURCE_ID_SPDF);
+  table_bitmap_layer = bitmap_layer_create(GRect(0, 37, 144, 131));
+  layer_add_child(window_get_root_layer(s_window), bitmap_layer_get_layer(table_bitmap_layer));
 }
 
 static void destroy_ui(void) {
@@ -75,6 +82,8 @@ static void destroy_ui(void) {
   text_layer_destroy(atomic_number_label);
   text_layer_destroy(atomic_weight_label);
   text_layer_destroy(element_name_label);
+  gbitmap_destroy(spdf_bitmap);
+  bitmap_layer_destroy(table_bitmap_layer);
 }
 // END AUTO-GENERATED UI CODE
 
@@ -94,7 +103,15 @@ void hide_watchface(void) {
   window_stack_remove(s_window, true);
 }
 
-void set_element(const struct element *element) {
+void show_bitmap_layer() {
+  layer_set_hidden(bitmap_layer_get_layer(table_bitmap_layer), 0);
+}
+
+void hide_bitmap_layer() {
+  layer_set_hidden(bitmap_layer_get_layer(table_bitmap_layer), 1);
+}
+
+void show_element(const struct element *element) {
     text_layer_set_text(element_code_label, element->code);
     text_layer_set_text(element_name_label, element->name);
     text_layer_set_text(atomic_number_label, element->number);
@@ -148,6 +165,13 @@ void set_element(const struct element *element) {
 
     window_set_background_color(s_window, backgroundColor);
     #endif
+
+    hide_bitmap_layer();
+}
+
+void show_spdf() {
+  bitmap_layer_set_bitmap(table_bitmap_layer, spdf_bitmap);
+  show_bitmap_layer();
 }
 
 void set_time_label(const char *time) {

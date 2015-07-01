@@ -7,7 +7,13 @@
     "longName": "Periodic Time",
     "projectType": "native",
     "resources": {
-        "media": []
+        "media": [
+          {
+            "type": "png",
+            "name": "SPDF",
+            "file": "spdf.png"
+          }
+        ]
     },
     "sdkVersion": "3",
     "shortName": "Periodic Time",

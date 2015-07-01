@@ -5,8 +5,8 @@
 
 // Define the elements
 int elements_left = 0;
-const int number_of_elements = 112;
 struct element elements[] = {
+    { .name = "?", .code = "?", .number = "0", .mass = "?"},
     { .name = "Hydrogen", .code = "H", .number = "1", .mass= "1.00794", .element_group = other_non_metals},
     { .name = "Helium", .code = "He", .number = "2", .mass= "4.002602", .element_group = inert_gases},
     { .name = "Lithium", .code = "Li", .number = "3", .mass= "6.941", .element_group = alkali_metals},
@@ -118,7 +118,14 @@ struct element elements[] = {
     { .name = "Meitnerium", .code = "Mt", .number = "109",  .mass = "268.139", .element_group = trans_actinides},
     { .name = "Darmstadium", .code = "Ds", .number = "110", .mass = "281", .element_group = trans_actinides},
     { .name = "Roentgenium", .code = "Rg", .number = "111", .mass = "280", .element_group = trans_actinides},
-    { .name = "Copernicium", .code = "Cn", .number = "112", .mass = "285", .element_group = trans_actinides}
+    { .name = "Copernicium", .code = "Cn", .number = "112", .mass = "285", .element_group = trans_actinides},
+    { .name = "Ununtrium", .code = "Uut", .number = "113", .mass = "284.000", .element_group = trans_actinides},
+    { .name = "Flerovium", .code = "Fl", .number = "114", .mass = "289.000", .element_group = trans_actinides},
+    { .name = "Ununpentium", .code = "Uup", .number = "115", .mass = "288.000", .element_group = trans_actinides},
+    { .name = "Livermorium", .code = "Lv", .number = "116", .mass = "293.000", .element_group = trans_actinides},
+    { .name = "Ununseptium", .code = "Uus", .number = "117", .mass = "294.000", .element_group = trans_actinides},
+    { .name = "Ununoctium", .code = "Uuo", .number = "118", .mass = "294.000", .element_group = trans_actinides},
+    { .name = "?", .code = "?", .number = "119", .mass = "?"},
 };
 
 static void update_time() {
@@ -143,6 +150,22 @@ static void update_time() {
 }
 
 static void update_element() {
+    time_t temp = time(NULL);
+    struct tm *tm = localtime(&temp);
+    int element_number = 60 * (tm->tm_hour % 2) + tm->tm_min;
+
+    if (element_number == 0 || element_number == 119) {
+      // No matching element. Show the table summary
+      show_spdf();
+    }
+    else {
+      // Display the chosen element
+      struct element new_element = elements[element_number];
+      show_element(&new_element);
+    }
+
+
+    /*
     // If we did the whole table, start over
     if (elements_left == 0) {
         elements_left = number_of_elements;
@@ -159,9 +182,7 @@ static void update_element() {
 
     // Count down the number of elements left valid in the table
     elements_left -= 1;
-
-    // Display the chosen element
-    set_element(&new_element);
+    */
 }
 
 static void tick_handler(struct tm *tick_time, TimeUnits units_changed) {
